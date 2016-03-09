@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.bistu.weibo.dao.AttentionMapper">
+    <insert id="insert" parameterType="Attention">
+        insert into attention (userid, attentionuserid)  values (#{userid}, #{attentionUserid});
+    </insert>
+    <delete id="deleteAttentionById" parameterType="string">
+        DELETE FROM attention where id=#{id};
+    </delete>
+    <select id="queryAttentionById" resultType="Attention" parameterType="string">
+        select * from attention where id=#{id};
+    </select>
+    <select id="queryByRandom" resultType="cn.edu.bistu.weibo.model.Attention">
+        select * from attention where userid=#{userid} order by rand() limit #{num};
+    </select>
+    <select id="queryAll" resultType="Attention">
+        select * from attention;
+    </select>
+</mapper>

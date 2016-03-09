@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.bistu.weibo.dao.SentimentTrainResultPlusMapper">
+    <insert id="insert" parameterType="TrainResultPlus">
+        insert into sentimenttrainresultplus (type, word, weight, x2) values (#{type}, #{word}, #{weight}, #{x2});
+    </insert>
+    <delete id="deleteAll">
+        DELETE from sentimenttrainresultplus;
+    </delete>
+    <select id="queryAll" resultType="TrainResultPlus">
+        select * from sentimenttrainresultplus;
+    </select>
+    <select id="queryAllByType" resultType="TrainResultPlus" parameterType="int">
+        select * from sentimenttrainresultplus WHERE type=#{type};
+    </select>
+    <select id="queryAllByXType" resultType="TrainResultPlus">
+        select * from sentimenttrainresultplus WHERE type=#{type} and x2>#{x2};
+    </select>
+</mapper>

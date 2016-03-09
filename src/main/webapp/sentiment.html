@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>微博可信度分析平台</title>
+
+        <link href="lib/Bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="lib/Bootstrap-Table/dist/bootstrap-table.min.css" rel="stylesheet">
+        <!--<link href="lib/DataTables-1.10.9/css/dataTables.bootstrap.css" rel="stylesheet">-->
+
+        <script src="lib/jquery/jquery-2.1.4.min.js"></script>
+        <script src="lib/Bootstrap-3.3.5/js/bootstrap.min.js"></script>
+
+        <script src="lib/Bootstrap-Table/dist/bootstrap-table.min.js"></script>
+        <script src="lib/Bootstrap-Table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+
+        <!--<script src="lib/DataTables-1.10.9/js/jquery.dataTables.min.js"></script>-->
+        <!--<script src="lib/DataTables-1.10.9/js/dataTables.bootstrap.min.js"></script>-->
+
+        <script src="lib/d3.min.js"></script>
+
+        <link href="css/default.css" rel="stylesheet">
+        <link href="css/sentiment.css" rel="stylesheet">
+        <script src="js/sentiment.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">中文微博信息可信度分析平台</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">可信度分析</a></li>
+                        <li class="active"><a href="sentiment.html">情感分析</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+            <div class="starter-template">
+                <h1>情感分析</h1>
+            </div>
+            <div class="buttongroupstyle">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" id="sentimentIndex">情感分析</button>
+                    <button type="button" class="btn btn-default" id="showTrain">训练集</button>
+                    <button type="button" class="btn btn-default" id="showTest">测试集</button>
+                    <!--<div class="btn-group" role="group">-->
+                        <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                            <!--情感分析数据集-->
+                            <!--<span class="caret"></span>-->
+                        <!--</button>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li id="showTrain"><a href="javascript:void(0);">训练集</a></li>-->
+                            <!--<li><a href="#">测试集</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div id="trainDataDiv">
+                <table id="trainData">
+                </table>
+            </div>
+            <div id="testDataDiv">
+                <table id="testData">
+                </table>
+            </div>
+            <div id="sentimentMain">
+                <form id="analysisForm">
+                    <div class="form-group" style="display: none">
+                        <div class="radio">
+                            <label class="radio-inline">
+                                <input type="radio" name="method" id="method1" value="Bayes" checked> 朴素贝叶斯
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="method" id="method2" value="SVM"> 支持向量机
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" name="weibo" rows="3" placeholder="请输入微博内容..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div id="result">
+                            <label>分析结果：</label>
+                            <label>正面</label>
+                        </div>
+                        <div id="btnDiv">
+                            <button type="button" class="btn btn-primary" id="analysisBtn">开始分析</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <div class="foot">
+                <span>©2015 Designed by Tang Anjie...</span>
+            </div>
+        </footer>
+    </body>
+</html>

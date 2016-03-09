@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.bistu.weibo.dao.UsersMapper">
+    <insert id="insert" parameterType="Users">
+        insert into users (id, name, sex, area, birthday, summary, tag, blog, qq, education, work, zan, trans, comm, att, fans, weibos, pages, official)
+        values (#{id}, #{name}, #{sex}, #{area}, #{birthday}, #{summary}, #{tag}, #{blog}, #{qq}, #{education}, #{work}, #{zan}, #{trans}, #{comm}, #{att}, #{fans}, #{weibos}, #{pages}, #{official});
+    </insert>
+    <delete id="deleteUsersById" parameterType="string">
+        DELETE FROM users WHERE id=#{id};
+    </delete>
+    <select id="queryUsers" resultType="Users">
+        select * from users;
+    </select>
+    <select id="queryUserById" resultType="Users" parameterType="string">
+        select * from users where id=#{id};
+    </select>
+    <select id="queryInPage" resultType="Users">
+        SELECT t.* FROM (SELECT * from users WHERE users.name LIKE #{search}
+        <if test="field=='id'">
+            ORDER BY id
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='name'">
+            ORDER BY name
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='sex'">
+            ORDER BY sex
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='area'">
+            ORDER BY area
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='birthday'">
+            ORDER BY birthday
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='weibos'">
+            ORDER BY weibos
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        ) AS t where t.id limit #{pn}, #{cp};
+    </select>
+    <select id="queryUsersSize" resultType="int" parameterType="string">
+        select count(1) from users WHERE name LIKE #{search};
+    </select>
+    <select id="countUsers" resultType="java.lang.Integer">
+        select count(1) from users where sex=#{sex};
+    </select>
+</mapper>

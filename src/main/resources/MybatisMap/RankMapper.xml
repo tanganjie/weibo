@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.bistu.weibo.dao.RankMapper">
+    <update id="updateRank">
+        UPDATE userrank set rank=#{rank}, valueRank=#{valueRank} where id=#{id};
+    </update>
+    <update id="resetRank">
+        update userrank set rank=-1,valuerank=-1;
+    </update>
+    <select id="queryAll" resultType="Rank">
+        select * from userrank;
+    </select>
+    <select id="resetCount" resultType="int">
+        select COUNT(1) from userrank where rank=-1;
+    </select>
+    <select id="queryInPage" resultType="Rank">
+        SELECT t.* FROM (SELECT * from userrank WHERE userrank.username LIKE #{search}
+        <if test="field=='id'">
+            ORDER BY id
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='username'">
+            ORDER BY username
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='zan'">
+            ORDER BY zan
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='trans'">
+            ORDER BY trans
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='comm'">
+            ORDER BY comm
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='att'">
+            ORDER BY att
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='fans'">
+            ORDER BY fans
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='rank'">
+            ORDER BY rank
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='valuerank'">
+            ORDER BY valuerank
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        ) AS t where t.id limit #{pn}, #{cp};
+    </select>
+    <select id="querySize" resultType="int" parameterType="string">
+        select COUNT(1) from userrank where username LIKE #{search};
+    </select>
+    <select id="queryById" resultType="Rank">
+        select * from userrank where id=#{userid};
+    </select>
+</mapper>

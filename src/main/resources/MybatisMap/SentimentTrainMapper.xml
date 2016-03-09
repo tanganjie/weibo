@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.bistu.weibo.dao.SentimentTrainMapper">
+    <insert id="insert" parameterType="Sentiment">
+        INSERT INTO sentimenttrain(id, content, weight) VALUES (#{id}, #{content}, #{weight})
+    </insert>
+    <delete id="deleteAll">
+        DELETE FROM sentimenttrain order by id;
+    </delete>
+    <select id="querySize" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM sentimenttrain
+    </select>
+    <select id="queryAll" resultType="Sentiment">
+        SELECT * from sentimenttrain
+    </select>
+    <select id="queryInPage" resultType="cn.edu.bistu.weibo.model.Sentiment">
+        SELECT t.* FROM (SELECT * from sentimenttrain WHERE content LIKE #{search}
+        <if test="field=='id'">
+            ORDER BY id
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='content'">
+            ORDER BY content
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+
+        <if test="field=='weight'">
+            ORDER BY weight
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+         ) AS t where t.id limit #{pn}, #{cp};
+    </select>
+    <select id="querySizeByWeight" resultType="java.lang.Integer" parameterType="float">
+        select count(1) from sentimenttrain WHERE weight=#{weight};
+    </select>
+    <select id="querySearchSize" resultType="java.lang.Integer" parameterType="string">
+        SELECT COUNT(1) from sentimenttrain WHERE content LIKE #{search}
+    </select>
+</mapper>

@@ -1,0 +1,25 @@
+.buttongroupstyle {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#sentimentMain {
+}
+
+#analysisForm {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#result{
+    float: left;
+}
+
+#btnDiv {
+    float: right;
+}
+
+.resultError {
+    color: red;
+}

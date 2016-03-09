@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.bistu.weibo.dao.WeibosMapper">
+    <insert id="insert" parameterType="Weibos">
+        insert into weibos (userid, content, zan, trans, comm)  values (#{userid}, #{content}, #{zan}, #{trans},#{comm});
+    </insert>
+    <delete id="deleteByUserId" parameterType="string">
+        DELETE FROM weibos where userid=#{userid}
+    </delete>
+    <select id="queryWeibosByUserId" resultType="Weibos">
+        SELECT t.* FROM (SELECT * from weibos WHERE userid=#{userid} and weibos.content LIKE #{search}
+        <if test="field=='zan'">
+            ORDER BY zan
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='trans'">
+            ORDER BY trans
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='comm'">
+            ORDER BY comm
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        ) AS t where t.id limit #{pn}, #{cp};
+    </select>
+    <select id="queryWeibosSize" resultType="int">
+        SELECT count(1) FROM weibos where userid=#{userid} and content LIKE #{search};
+    </select>
+    <select id="queryById" resultType="cn.edu.bistu.weibo.model.Weibos" parameterType="int">
+        select * from weibos where id=#{id};
+    </select>
+    <select id="queryAll" resultType="Weibos">
+        select * from weibos;
+    </select>
+    <select id="queryByUserId" resultType="Weibos" parameterType="string">
+        select * from weibos where userid=#{userid};
+    </select>
+</mapper>

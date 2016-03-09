@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="config.properties"></properties>
+
+    <settings>
+        <!-- Globally enables or disables any caches configured in any mapper under this configuration -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- Sets the number of seconds the driver will wait for a response from the database -->
+        <setting name="defaultStatementTimeout" value="3000"/>
+        <!-- Enables automatic mapping from classic database column names A_COLUMN to camel case classic Java property names aColumn -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- Allows JDBC support for generated keys. A compatible driver is required.
+        This setting forces generated keys to be used if set to true,
+         as some drivers deny compatibility but still work -->
+        <setting name="useGeneratedKeys" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="cn.edu.bistu.weibo.model.Sentiment" alias="Sentiment"></typeAlias>
+        <typeAlias type="cn.edu.bistu.weibo.model.SentimentTest" alias="SentimentTest"></typeAlias>
+        <typeAlias type="cn.edu.bistu.weibo.model.TrainResult" alias="TrainResult"></typeAlias>
+        <typeAlias type="cn.edu.bistu.weibo.model.TrainResultPlus" alias="TrainResultPlus"></typeAlias>
+        <typeAlias type="cn.edu.bistu.weibo.model.Users" alias="Users"></typeAlias>
+        <typeAlias type="cn.edu.bistu.weibo.model.Attention" alias="Attention"></typeAlias>
+        <typeAlias type="cn.edu.bistu.weibo.model.Weibos" alias="Weibos"></typeAlias>
+        <typeAlias type="cn.edu.bistu.weibo.model.Rank" alias="Rank"></typeAlias>
+    </typeAliases>
+
+    <!-- Continue going here -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"></property>
+                <property name="url" value="${url}"></property>
+                <property name="username" value="${username}"></property>
+                <property name="password" value="${password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="MybatisMap/SentimentTrainMapper.xml"></mapper>
+        <mapper resource="MybatisMap/SentimentTrainResultMapper.xml"></mapper>
+        <mapper resource="MybatisMap/SentimentTrainResultPlusMapper.xml"></mapper>
+        <mapper resource="MybatisMap/SentimentTestMapper.xml"></mapper>
+        <mapper resource="MybatisMap/UsersMapper.xml"></mapper>
+        <mapper resource="MybatisMap/AttentionMapper.xml"></mapper>
+        <mapper resource="MybatisMap/WeibosMapper.xml"></mapper>
+        <mapper resource="MybatisMap/RankMapper.xml"></mapper>
+    </mappers>
+</configuration>

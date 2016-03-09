@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.bistu.weibo.dao.SentimentTestMapper">
+    <insert id="insert" parameterType="Sentiment">
+        insert into sentimenttest (id, content, weight) values (#{id}, #{content}, #{weight});
+    </insert>
+    <update id="reset">
+        update sentimenttest set weight = -1 WHERE 1=1;
+    </update>
+    <update id="updateAns" parameterType="Sentiment">
+        update sentimenttest set weight = #{weight} where id=#{id};
+    </update>
+    <update id="updateCor" parameterType="int">
+        UPDATE sentimenttest set correct=#{correct} where id=#{id};
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM sentimenttest WHERE id=#{id};
+    </delete>
+    <delete id="deleteData" parameterType="int">
+        DELETE FROM sentimenttest WHERE id=#{id}
+    </delete>
+    <select id="queryAll" resultType="Sentiment">
+        select * from sentimenttest ORDER by id;
+    </select>
+    <select id="querySize" resultType="java.lang.Integer">
+        select COUNT(1) from sentimenttest;
+    </select>
+    <select id="querySentimentById" resultType="Sentiment" parameterType="int">
+        select * from sentimenttest where id=#{id};
+    </select>
+    <select id="queryCompleteAll" resultType="SentimentTest">
+        select * from sentimenttest;
+    </select>
+    <select id="queryInPage" resultType="SentimentTest">
+        SELECT t.* FROM (SELECT * from sentimenttest WHERE sentimenttest.content LIKE #{search}
+        <if test="field=='weight'">
+            ORDER BY weight
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        <if test="field=='correct'">
+            ORDER BY correct
+            <if test="asc=='asc'">
+                asc
+            </if>
+            <if test="asc=='desc'">
+                desc
+            </if>
+        </if>
+        ) AS t where t.id limit #{pn}, #{cp};
+    </select>
+    <select id="queryPageSize" resultType="int" parameterType="string">
+        select COUNT(1) from sentimenttest where content LIKE #{search};
+    </select>
+</mapper>
